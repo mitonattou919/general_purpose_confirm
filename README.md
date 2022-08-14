@@ -39,7 +39,7 @@
 
 1. Create inventory and host-variables
     ```:
-    cd projecto_debgon
+    cd gp_confirm
     python create_config_confirm.py xxx.xlsx
     ```
 
