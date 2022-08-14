@@ -1,0 +1,4 @@
+- hosts: all
+  roles:
+    - role: gp_fetch
+      tags: gp_fetch

@@ -1,0 +1,33 @@
+- name: GP_FETCH_CMD - Create output directory
+  ansible.builtin.file:
+    path: "/tmp/command_output"
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  become: yes
+
+- name: GP_FETCH_CMD - Execute command
+  ansible.builtin.command:
+    cmd: "{{ item.target_cmd }}"
+  with_items: "{{ general_purpose_cmd_info }}"
+  changed_when: false
+  register: command_result
+  become: yes
+  ignore_errors: yes
+
+- name: GP_FETCH_CMD - Output command result
+  ansible.builtin.copy:
+    content: "{{ item.stdout }}"
+    dest: "/tmp/command_output/{{ item.item.out_file }}"
+  with_items:
+    - "{{ command_result.results }}"
+
+- name: GP_FETCH_CMD - Gather result
+  ansible.builtin.fetch:
+    src: "/tmp/command_output/{{ item.out_file }}"
+    dest: "{{ local_gather_dir }}"
+  with_items:
+    - "{{ general_purpose_cmd_info }}"
+  become: yes
+

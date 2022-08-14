@@ -1,0 +1,12 @@
+- name: Archive - Get date and time string
+  local_action:
+    module: ansible.builtin.command
+    cmd: 'date +%Y%m%d%H%M%S'
+  register: date_result
+  changed_when: false
+
+- name: Archive - Archive gather files and command results
+  local_action:
+    module: community.general.archive
+    path: "{{ local_gather_dir }}"
+    dest: "{{ local_gather_dir }}/{{ date_result.stdout }}_{{ local_gather_dir }}.gz"

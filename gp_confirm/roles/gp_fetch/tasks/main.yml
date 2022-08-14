@@ -1,0 +1,4 @@
+- import_tasks: fetch_file.yml
+- import_tasks: fetch_cmd.yml
+- import_tasks: archive.yml
+

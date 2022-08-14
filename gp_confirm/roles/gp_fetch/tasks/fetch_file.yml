@@ -1,0 +1,9 @@
+- name: GP_FETCH_FILE - Gather files
+  ansible.builtin.fetch:
+    src: "{{  item.target_file }}"
+    dest: "{{ local_gather_dir }}"
+  with_items:
+    - "{{ general_purpose_copy_info }}"
+  become: yes
+  ignore_errors: yes
+

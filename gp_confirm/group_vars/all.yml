@@ -1,0 +1,3 @@
+# Specify the store directory in a localhost
+local_gather_dir: 'gather_config'
+
